@@ -73,36 +73,7 @@ StockScope is a comprehensive, professional-grade stock tracking application bui
 - **GitHub Integration**: Check for updates from GitHub releases
 - **Update Notifications**: Notify users of available updates
 
-## 🚀 Installation
 
-### Prerequisites
-- Python 3.7 or higher
-- Firebase project with Authentication and Realtime Database enabled
-
-### Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/stockscope.git
-   cd stockscope
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Configure Firebase**:
-   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Authentication (Email/Password and Phone Number providers)
-   - Enable Realtime Database
-   - Get your Firebase API key and database URL
-   - Update `config.py` with your Firebase credentials
-
-4. **Run the application**:
-   ```bash
-   python main.py
-   ```
 
 ## 📱 Usage Guide
 
