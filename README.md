@@ -1,8 +1,7 @@
-# stockscope
+# StockScope Electron
 Professional stock tracking application with advanced analytics
-StockScope - Advanced Stock Tracking Application
 
-StockScope is a comprehensive, professional-grade stock tracking application built with Python and Tkinter. It provides advanced portfolio management, real-time market data, technical analysis, and secure authentication features.
+StockScope is a comprehensive, professional-grade stock tracking application built with Electron, React, and TypeScript. It provides advanced portfolio management, real-time market data, technical analysis, and secure authentication features.
 
 ## 🌟 Features
 
@@ -78,10 +77,12 @@ StockScope is a comprehensive, professional-grade stock tracking application bui
 ## 📱 Usage Guide
 
 ### Getting Started
-1. **Launch StockScope**: Run `python main.py`
-2. **Create Account**: Sign up with email/password or phone number
-3. **Add Stocks**: Use the "Add Stock" button to add stocks to your watchlist
-4. **Explore Features**: Navigate through different tabs to explore features
+1. **Install Dependencies**: Run `npm install`
+2. **Configure Firebase**: Set up your Firebase project and update `.env` file
+3. **Launch StockScope**: Run `npm run dev` for development or `npm run build` for production
+4. **Create Account**: Sign up with email/password
+5. **Add Stocks**: Use the "Add Stock" button to add stocks to your watchlist
+6. **Explore Features**: Navigate through different sections to explore features
 
 ### Dashboard
 - **Portfolio Summary**: View total portfolio value, P&L, and top performers
@@ -113,19 +114,34 @@ StockScope is a comprehensive, professional-grade stock tracking application bui
 ## 🔧 Configuration
 
 ### Firebase Setup
-1. Create a Firebase project
-2. Enable Authentication with Email/Password and Phone Number providers
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Enable Authentication with Email/Password provider
 3. Enable Realtime Database
-4. Update `config.py`:
-   ```python
-   FIREBASE_API_KEY = "your-api-key"
-   FIREBASE_DATABASE_URL = "your-database-url"
+4. Copy your Firebase configuration
+5. Create `.env` file from `.env.example` and update with your Firebase config:
+   ```env
+   REACT_APP_FIREBASE_API_KEY=your-api-key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   REACT_APP_FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
+   REACT_APP_FIREBASE_PROJECT_ID=your-project
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=123456789
+   REACT_APP_FIREBASE_APP_ID=your-app-id
    ```
 
-### Update Checker
-Update `version.py` with your GitHub repository:
-```python
-GITHUB_REPO = "https://api.github.com/repos/yourusername/stockscope/releases/latest"
+### Development Setup
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Package for distribution
+npm run dist
 ```
 
 ## 📊 Features in Detail
@@ -160,22 +176,21 @@ GITHUB_REPO = "https://api.github.com/repos/yourusername/stockscope/releases/lat
 ## 🛠️ Technical Details
 
 ### Architecture
-- **Frontend**: Tkinter GUI framework
-- **Backend**: Python with Firebase integration
+- **Frontend**: React with TypeScript and Styled Components
+- **Desktop**: Electron for cross-platform desktop app
+- **Backend**: Firebase integration
 - **Data Sources**: Yahoo Finance API, web scraping
 - **Authentication**: Firebase Authentication
 - **Database**: Firebase Realtime Database
+- **Charts**: Recharts and Chart.js for data visualization
 
 ### Dependencies
-- `requests`: HTTP requests and API calls
-- `yfinance`: Yahoo Finance data
-- `matplotlib`: Chart generation
-- `numpy`: Numerical computations
-- `pandas`: Data manipulation
-- `scipy`: Portfolio optimization
-- `beautifulsoup4`: Web scraping
-- `plyer`: Desktop notifications
-- `openpyxl`: Excel export
+- **Core**: React, TypeScript, Electron
+- **UI**: Styled Components, React Router
+- **Charts**: Recharts, Chart.js
+- **Data**: Axios for HTTP requests, Firebase SDK
+- **Build**: Vite, Electron Builder
+- **Development**: ESLint, TypeScript compiler
 
 ### Security Features
 - Firebase Authentication
