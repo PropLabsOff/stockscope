@@ -12,28 +12,58 @@ const SpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: ${props => props.theme.background};
+  background: ${props => props.theme.gradient};
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
 `
 
 const Spinner = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 4px solid ${props => props.theme.border};
-  border-top: 4px solid ${props => props.theme.primary};
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-top: 5px solid white;
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 `
 
 const LoadingText = styled.h2`
-  color: ${props => props.theme.text};
-  font-weight: 300;
-  margin-bottom: 10px;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 32px;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
 `
 
 const SubText = styled.p`
-  color: ${props => props.theme.textSecondary};
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  position: relative;
+  z-index: 1;
 `
 
 const LoadingSpinner: React.FC = () => {

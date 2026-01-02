@@ -7,21 +7,40 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.2s ease;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `
 
 const ModalContent = styled.div`
-  background-color: ${props => props.theme.surface};
-  border-radius: 12px;
-  padding: 30px;
+  background: ${props => props.theme.surface};
+  border-radius: 24px;
+  padding: 36px;
   width: 90%;
-  max-width: 500px;
+  max-width: 520px;
   border: 1px solid ${props => props.theme.border};
-  box-shadow: 0 8px 32px ${props => props.theme.shadow};
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `
 
 const ModalHeader = styled.div`
@@ -32,22 +51,35 @@ const ModalHeader = styled.div`
 `
 
 const ModalTitle = styled.h2`
-  color: ${props => props.theme.text};
-  font-size: 24px;
-  font-weight: 600;
+  background: ${props => props.theme.gradientPrimary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 28px;
+  font-weight: 700;
   margin: 0;
+  letter-spacing: -0.5px;
 `
 
 const CloseButton = styled.button`
-  background: none;
+  background: ${props => props.theme.backgroundSecondary};
   border: none;
   font-size: 24px;
   cursor: pointer;
   color: ${props => props.theme.text};
-  padding: 4px;
+  padding: 8px;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
   
   &:hover {
-    opacity: 0.7;
+    background: ${props => props.theme.dangerLight};
+    color: ${props => props.theme.danger};
+    transform: rotate(90deg);
   }
 `
 
@@ -70,32 +102,41 @@ const Label = styled.label`
 `
 
 const Input = styled.input`
-  padding: 12px 16px;
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
-  background-color: ${props => props.theme.background};
+  padding: 14px 18px;
+  border: 2px solid ${props => props.theme.border};
+  border-radius: 12px;
+  background: ${props => props.theme.backgroundSecondary};
   color: ${props => props.theme.text};
-  font-size: 16px;
+  font-size: 15px;
+  transition: all 0.2s ease;
   
   &:focus {
     outline: none;
     border-color: ${props => props.theme.primary};
-    box-shadow: 0 0 0 3px ${props => props.theme.primary}20;
+    background: ${props => props.theme.surface};
+    box-shadow: 0 0 0 4px ${props => props.theme.primaryLight}40;
+  }
+  
+  &::placeholder {
+    color: ${props => props.theme.textTertiary};
   }
 `
 
 const Select = styled.select`
-  padding: 12px 16px;
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
-  background-color: ${props => props.theme.background};
+  padding: 14px 18px;
+  border: 2px solid ${props => props.theme.border};
+  border-radius: 12px;
+  background: ${props => props.theme.backgroundSecondary};
   color: ${props => props.theme.text};
-  font-size: 16px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   
   &:focus {
     outline: none;
     border-color: ${props => props.theme.primary};
-    box-shadow: 0 0 0 3px ${props => props.theme.primary}20;
+    background: ${props => props.theme.surface};
+    box-shadow: 0 0 0 4px ${props => props.theme.primaryLight}40;
   }
 `
 
@@ -106,44 +147,54 @@ const ButtonGroup = styled.div`
 `
 
 const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
-  padding: 12px 24px;
+  padding: 14px 28px;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 12px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  letter-spacing: -0.2px;
   
   ${props => props.variant === 'primary' ? `
-    background-color: ${props.theme.primary};
+    background: ${props.theme.gradientPrimary};
     color: white;
+    box-shadow: 0 4px 12px ${props.theme.shadow};
     
     &:hover {
-      background-color: ${props.theme.primaryHover};
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px ${props.theme.shadowHover};
+    }
+    
+    &:active {
+      transform: translateY(0);
     }
   ` : `
-    background-color: transparent;
+    background: transparent;
     color: ${props.theme.text};
-    border: 1px solid ${props.theme.border};
+    border: 2px solid ${props.theme.border};
     
     &:hover {
-      background-color: ${props.theme.border};
+      background: ${props.theme.backgroundSecondary};
+      border-color: ${props.theme.primary};
     }
   `}
   
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    transform: none !important;
   }
 `
 
 const ErrorMessage = styled.div`
   color: ${props => props.theme.danger};
   font-size: 14px;
-  padding: 8px 12px;
-  background-color: ${props => props.theme.danger}20;
-  border-radius: 6px;
-  border: 1px solid ${props => props.theme.danger};
+  padding: 12px 16px;
+  background: ${props => props.theme.dangerLight};
+  border-radius: 12px;
+  border: 2px solid ${props => props.theme.danger};
+  font-weight: 500;
 `
 
 interface AddStockModalProps {

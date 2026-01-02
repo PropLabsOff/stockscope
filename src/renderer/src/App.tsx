@@ -33,44 +33,78 @@ const MainContent = styled.main<{ sidebarOpen: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: ${props => props.sidebarOpen ? '250px' : '0'};
-  transition: margin-left 0.3s ease;
+  margin-left: ${props => props.sidebarOpen ? '280px' : '0'};
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `
 
 const ContentArea = styled.div`
   flex: 1;
-  padding: 20px;
+  padding: 32px;
   overflow-y: auto;
-  background-color: ${props => props.theme.background};
+  background: ${props => props.theme.background};
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `
 
 const lightTheme = {
-  background: '#f5f5f5',
+  background: '#f8fafc',
+  backgroundSecondary: '#f1f5f9',
   surface: '#ffffff',
-  text: '#333333',
-  textSecondary: '#666666',
-  primary: '#0066cc',
-  primaryHover: '#0052a3',
-  success: '#28a745',
-  danger: '#dc3545',
-  warning: '#ffc107',
-  border: '#e0e0e0',
-  shadow: 'rgba(0, 0, 0, 0.1)',
+  surfaceElevated: '#ffffff',
+  text: '#0f172a',
+  textSecondary: '#64748b',
+  textTertiary: '#94a3b8',
+  primary: '#3b82f6',
+  primaryHover: '#2563eb',
+  primaryLight: '#dbeafe',
+  success: '#10b981',
+  successLight: '#d1fae5',
+  danger: '#ef4444',
+  dangerLight: '#fee2e2',
+  warning: '#f59e0b',
+  warningLight: '#fef3c7',
+  border: '#e2e8f0',
+  borderLight: '#f1f5f9',
+  shadow: 'rgba(0, 0, 0, 0.08)',
+  shadowHover: 'rgba(0, 0, 0, 0.12)',
+  gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  gradientPrimary: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+  gradientSuccess: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+  gradientDanger: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
 }
 
 const darkTheme = {
-  background: '#1a1a1a',
-  surface: '#2d2d2d',
-  text: '#e0e0e0',
-  textSecondary: '#b0b0b0',
-  primary: '#4a9eff',
-  primaryHover: '#357abd',
-  success: '#4caf50',
-  danger: '#f44336',
-  warning: '#ff9800',
-  border: '#404040',
-  shadow: 'rgba(0, 0, 0, 0.3)',
+  background: '#0f172a',
+  backgroundSecondary: '#1e293b',
+  surface: '#1e293b',
+  surfaceElevated: '#334155',
+  text: '#f1f5f9',
+  textSecondary: '#cbd5e1',
+  textTertiary: '#94a3b8',
+  primary: '#60a5fa',
+  primaryHover: '#3b82f6',
+  primaryLight: '#1e3a8a',
+  success: '#34d399',
+  successLight: '#065f46',
+  danger: '#f87171',
+  dangerLight: '#991b1b',
+  warning: '#fbbf24',
+  warningLight: '#92400e',
+  border: '#334155',
+  borderLight: '#475569',
+  shadow: 'rgba(0, 0, 0, 0.4)',
+  shadowHover: 'rgba(0, 0, 0, 0.6)',
+  gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  gradientPrimary: 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)',
+  gradientSuccess: 'linear-gradient(135deg, #34d399 0%, #10b981 100%)',
+  gradientDanger: 'linear-gradient(135deg, #f87171 0%, #ef4444 100%)',
 }
 
 function App() {

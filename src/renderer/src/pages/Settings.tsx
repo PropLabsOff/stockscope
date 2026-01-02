@@ -7,31 +7,41 @@ import { useNotifications } from '../contexts/NotificationContext'
 const SettingsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 800px;
+  gap: 24px;
+  max-width: 900px;
   margin: 0 auto;
 `
 
 const Title = styled.h1`
-  color: ${props => props.theme.text};
-  font-size: 28px;
-  font-weight: 600;
+  background: ${props => props.theme.gradientPrimary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 32px;
+  font-weight: 700;
   margin: 0;
+  letter-spacing: -0.5px;
 `
 
 const SettingsSection = styled.div`
-  background-color: ${props => props.theme.surface};
+  background: ${props => props.theme.surface};
   border: 1px solid ${props => props.theme.border};
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 8px ${props => props.theme.shadow};
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 20px ${props => props.theme.shadowHover};
+  }
 `
 
 const SectionTitle = styled.h2`
   color: ${props => props.theme.text};
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
 `
 
 const SettingItem = styled.div`
@@ -64,84 +74,106 @@ const SettingDescription = styled.span`
 `
 
 const Toggle = styled.button<{ active: boolean }>`
-  width: 50px;
-  height: 24px;
-  border-radius: 12px;
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
   border: none;
-  background-color: ${props => props.active ? props.theme.primary : props.theme.border};
+  background: ${props => props.active ? props.theme.gradientPrimary : props.theme.border};
   position: relative;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: ${props => props.active ? `0 2px 8px ${props.theme.shadow}` : 'none'};
+  
+  &:hover {
+    transform: scale(1.05);
+  }
   
   &::after {
     content: '';
     position: absolute;
-    top: 2px;
-    left: ${props => props.active ? '26px' : '2px'};
-    width: 20px;
-    height: 20px;
+    top: 3px;
+    left: ${props => props.active ? '27px' : '3px'};
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background-color: white;
-    transition: left 0.2s ease;
+    background: white;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 `
 
 const Select = styled.select`
-  padding: 8px 12px;
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 6px;
-  background-color: ${props => props.theme.background};
+  padding: 10px 16px;
+  border: 2px solid ${props => props.theme.border};
+  border-radius: 12px;
+  background: ${props => props.theme.backgroundSecondary};
   color: ${props => props.theme.text};
   font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   
   &:focus {
     outline: none;
     border-color: ${props => props.theme.primary};
+    background: ${props => props.theme.surface};
+    box-shadow: 0 0 0 4px ${props => props.theme.primaryLight}40;
   }
 `
 
 const Button = styled.button<{ variant?: 'primary' | 'danger' }>`
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  letter-spacing: -0.2px;
   
   ${props => {
     if (props.variant === 'danger') {
       return `
-        background-color: ${props.theme.danger};
+        background: ${props.theme.gradientDanger};
         color: white;
+        box-shadow: 0 4px 12px ${props.theme.shadow};
         
         &:hover {
-          opacity: 0.9;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px ${props.theme.shadowHover};
         }
       `
     }
     return `
-      background-color: ${props.theme.primary};
+      background: ${props.theme.gradientPrimary};
       color: white;
+      box-shadow: 0 4px 12px ${props.theme.shadow};
       
       &:hover {
-        background-color: ${props.theme.primaryHover};
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px ${props.theme.shadowHover};
       }
     `
   }}
+  
+  &:active {
+    transform: translateY(0);
+  }
 `
 
 const Input = styled.input`
-  padding: 8px 12px;
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 6px;
-  background-color: ${props => props.theme.background};
+  padding: 10px 16px;
+  border: 2px solid ${props => props.theme.border};
+  border-radius: 12px;
+  background: ${props => props.theme.backgroundSecondary};
   color: ${props => props.theme.text};
   font-size: 14px;
+  transition: all 0.2s ease;
   
   &:focus {
     outline: none;
     border-color: ${props => props.theme.primary};
+    background: ${props => props.theme.surface};
+    box-shadow: 0 0 0 4px ${props => props.theme.primaryLight}40;
   }
 `
 
