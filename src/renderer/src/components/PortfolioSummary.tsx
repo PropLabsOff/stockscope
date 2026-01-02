@@ -8,25 +8,40 @@ const SummaryContainer = styled.div`
 `
 
 const MetricCard = styled.div`
-  background-color: ${props => props.theme.background};
-  padding: 16px;
-  border-radius: 8px;
+  background: ${props => props.theme.surface};
+  padding: 24px;
+  border-radius: 16px;
   border: 1px solid ${props => props.theme.border};
+  box-shadow: 0 2px 8px ${props => props.theme.shadow};
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 16px ${props => props.theme.shadowHover};
+    transform: translateY(-2px);
+  }
 `
 
 const MetricLabel = styled.div`
   color: ${props => props.theme.textSecondary};
-  font-size: 14px;
-  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 `
 
 const MetricValue = styled.div<{ positive?: boolean }>`
-  color: ${props => {
-    if (props.positive === undefined) return props.theme.text
-    return props.positive ? props.theme.success : props.theme.danger
+  background: ${props => {
+    if (props.positive === undefined) return props.theme.gradientPrimary
+    return props.positive ? props.theme.gradientSuccess : props.theme.gradientDanger
   }};
-  font-size: 24px;
-  font-weight: 600;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
 `
 
 const MetricSubtext = styled.div`
@@ -43,22 +58,36 @@ const StatsGrid = styled.div`
 
 const StatItem = styled.div`
   text-align: center;
-  padding: 12px;
-  background-color: ${props => props.theme.background};
-  border-radius: 6px;
-  border: 1px solid ${props => props.theme.border};
+  padding: 20px 16px;
+  background: ${props => props.theme.backgroundSecondary};
+  border-radius: 12px;
+  border: 1px solid ${props => props.theme.borderLight};
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: ${props => props.theme.surface};
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  }
 `
 
 const StatValue = styled.div`
-  color: ${props => props.theme.text};
-  font-weight: 600;
-  font-size: 18px;
+  background: ${props => props.theme.gradientPrimary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.3px;
 `
 
 const StatLabel = styled.div`
   color: ${props => props.theme.textSecondary};
   font-size: 12px;
-  margin-top: 4px;
+  font-weight: 600;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `
 
 const LoadingText = styled.div`

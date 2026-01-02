@@ -28,18 +28,25 @@ const Title = styled.h1`
 `
 
 const AddButton = styled.button`
-  background-color: ${props => props.theme.primary};
+  background: ${props => props.theme.gradientPrimary};
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  letter-spacing: -0.2px;
   
   &:hover {
-    background-color: ${props => props.theme.primaryHover};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px ${props => props.theme.shadowHover};
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `
 
@@ -51,18 +58,25 @@ const FiltersContainer = styled.div`
 `
 
 const FilterButton = styled.button<{ active: boolean }>`
-  padding: 8px 16px;
-  border: 1px solid ${props => props.active ? props.theme.primary : props.theme.border};
-  border-radius: 20px;
-  background-color: ${props => props.active ? props.theme.primary : 'transparent'};
+  padding: 10px 20px;
+  border: 2px solid ${props => props.active ? props.theme.primary : props.theme.border};
+  border-radius: 24px;
+  background: ${props => props.active ? props.theme.gradientPrimary : 'transparent'};
   color: ${props => props.active ? 'white' : props.theme.text};
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
   
   &:hover {
     border-color: ${props => props.theme.primary};
-    background-color: ${props => props.active ? props.theme.primary : props.theme.primary}20;
+    background: ${props => props.active ? props.theme.gradientPrimary : props.theme.primaryLight};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `
 

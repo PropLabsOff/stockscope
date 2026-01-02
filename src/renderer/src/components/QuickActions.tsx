@@ -11,36 +11,73 @@ const ActionButton = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: ${props => props.theme.background};
+  padding: 24px 20px;
+  background: ${props => props.theme.surface};
   border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${props => props.theme.gradientPrimary};
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
   
   &:hover {
-    background-color: ${props => props.theme.primary};
     color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px ${props => props.theme.shadowHover};
+    border-color: ${props => props.theme.primary};
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    ${ActionIcon}, ${ActionTitle}, ${ActionDescription} {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  
+  &:active {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px ${props => props.theme.shadow};
   }
 `
 
 const ActionIcon = styled.div`
-  font-size: 32px;
+  font-size: 36px;
   margin-bottom: 12px;
+  transition: transform 0.3s ease;
+  
+  ${ActionButton}:hover & {
+    transform: scale(1.1) rotate(5deg);
+  }
 `
 
 const ActionTitle = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+  color: ${props => props.theme.text};
+  transition: color 0.3s ease;
 `
 
 const ActionDescription = styled.div`
   font-size: 12px;
-  opacity: 0.8;
+  opacity: 0.7;
   text-align: center;
+  color: ${props => props.theme.textSecondary};
+  transition: color 0.3s ease;
 `
 
 const QuickActions: React.FC = () => {

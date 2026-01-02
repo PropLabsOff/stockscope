@@ -10,30 +10,57 @@ import QuickActions from '../components/QuickActions'
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 1200px;
+  gap: 24px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 4px;
 `
 
 const WelcomeSection = styled.div`
-  background-color: ${props => props.theme.surface};
-  padding: 30px;
-  border-radius: 12px;
-  border: 1px solid ${props => props.theme.border};
-  box-shadow: 0 2px 8px ${props => props.theme.shadow};
+  background: ${props => props.theme.gradientPrimary};
+  padding: 40px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 8px 24px ${props => props.theme.shadow};
+  color: white;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`
+
+const WelcomeContent = styled.div`
+  position: relative;
+  z-index: 1;
 `
 
 const WelcomeTitle = styled.h1`
-  color: ${props => props.theme.text};
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 `
 
 const WelcomeSubtitle = styled.p`
-  color: ${props => props.theme.textSecondary};
-  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
   margin: 0;
+  font-weight: 400;
 `
 
 const GridContainer = styled.div`
@@ -47,18 +74,36 @@ const GridContainer = styled.div`
 `
 
 const Section = styled.div`
-  background-color: ${props => props.theme.surface};
-  padding: 20px;
-  border-radius: 12px;
+  background: ${props => props.theme.surface};
+  padding: 28px;
+  border-radius: 16px;
   border: 1px solid ${props => props.theme.border};
-  box-shadow: 0 2px 8px ${props => props.theme.shadow};
+  box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 20px ${props => props.theme.shadowHover};
+    transform: translateY(-2px);
+  }
 `
 
 const SectionTitle = styled.h2`
   color: ${props => props.theme.text};
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  &::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: ${props => props.theme.gradientPrimary};
+    opacity: 0.2;
+  }
 `
 
 const LoadingMessage = styled.div`
@@ -85,10 +130,12 @@ const Dashboard: React.FC = () => {
   if (!user) {
     return (
       <DashboardContainer>
-        <WelcomeSection>
+      <WelcomeSection>
+        <WelcomeContent>
           <WelcomeTitle>Welcome to StockScope</WelcomeTitle>
           <WelcomeSubtitle>Please sign in to access your portfolio</WelcomeSubtitle>
-        </WelcomeSection>
+        </WelcomeContent>
+      </WelcomeSection>
       </DashboardContainer>
     )
   }
@@ -96,10 +143,12 @@ const Dashboard: React.FC = () => {
   if (loading) {
     return (
       <DashboardContainer>
-        <WelcomeSection>
+      <WelcomeSection>
+        <WelcomeContent>
           <WelcomeTitle>Welcome back, {user.email}!</WelcomeTitle>
           <WelcomeSubtitle>Loading your portfolio data...</WelcomeSubtitle>
-        </WelcomeSection>
+        </WelcomeContent>
+      </WelcomeSection>
         <LoadingMessage>Fetching latest market data...</LoadingMessage>
       </DashboardContainer>
     )
@@ -108,8 +157,10 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardContainer>
       <WelcomeSection>
-        <WelcomeTitle>Welcome back, {user.email}!</WelcomeTitle>
-        <WelcomeSubtitle>Here's your portfolio overview</WelcomeSubtitle>
+        <WelcomeContent>
+          <WelcomeTitle>Welcome back, {user.email}!</WelcomeTitle>
+          <WelcomeSubtitle>Here's your portfolio overview</WelcomeSubtitle>
+        </WelcomeContent>
       </WelcomeSection>
 
       <GridContainer>

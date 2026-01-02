@@ -11,10 +11,35 @@ const IndexCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background-color: ${props => props.theme.background};
+  padding: 18px 20px;
+  background: ${props => props.theme.surface};
   border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: ${props => props.theme.gradientPrimary};
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover {
+    box-shadow: 0 4px 12px ${props => props.theme.shadow};
+    transform: translateX(4px);
+    border-color: ${props => props.theme.primary};
+    
+    &::before {
+      transform: scaleY(1);
+    }
+  }
 `
 
 const IndexInfo = styled.div`
@@ -23,25 +48,38 @@ const IndexInfo = styled.div`
 `
 
 const IndexName = styled.span`
-  font-weight: 600;
+  font-weight: 700;
   color: ${props => props.theme.text};
-  font-size: 14px;
+  font-size: 15px;
+  letter-spacing: -0.2px;
 `
 
 const IndexValue = styled.span`
   color: ${props => props.theme.textSecondary};
   font-size: 12px;
+  font-weight: 500;
+  margin-top: 2px;
 `
 
 const IndexPrice = styled.div<{ positive: boolean }>`
-  color: ${props => props.positive ? props.theme.success : props.theme.danger};
-  font-weight: 600;
-  font-size: 16px;
+  background: ${props => props.positive ? props.theme.gradientSuccess : props.theme.gradientDanger};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.3px;
 `
 
 const IndexChange = styled.div<{ positive: boolean }>`
+  background: ${props => props.positive ? props.theme.successLight : props.theme.dangerLight};
   color: ${props => props.positive ? props.theme.success : props.theme.danger};
-  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 4px;
+  display: inline-block;
 `
 
 const LoadingText = styled.div`

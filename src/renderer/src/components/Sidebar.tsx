@@ -5,20 +5,22 @@ import styled from 'styled-components'
 const SidebarContainer = styled.aside<{ isOpen: boolean }>`
   position: fixed;
   left: 0;
-  top: 60px;
-  width: 250px;
-  height: calc(100vh - 60px);
-  background-color: ${props => props.theme.surface};
+  top: 70px;
+  width: 280px;
+  height: calc(100vh - 70px);
+  background: ${props => props.theme.surface};
+  backdrop-filter: blur(10px);
   border-right: 1px solid ${props => props.theme.border};
   transform: ${props => props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
   overflow-y: auto;
+  box-shadow: 2px 0 8px ${props => props.theme.shadow};
 `
 
 const NavList = styled.ul`
   list-style: none;
-  padding: 20px 0;
+  padding: 16px 12px;
   margin: 0;
 `
 
@@ -29,30 +31,62 @@ const NavItem = styled.li`
 const NavLinkStyled = styled(NavLink)`
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: 14px 16px;
   color: ${props => props.theme.text};
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: ${props => props.theme.gradientPrimary};
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+  }
   
   &:hover {
-    background-color: ${props => props.theme.border};
+    background-color: ${props => props.theme.backgroundSecondary};
+    transform: translateX(4px);
   }
   
   &.active {
-    background-color: ${props => props.theme.primary};
+    background: ${props => props.theme.gradientPrimary};
     color: white;
+    box-shadow: 0 4px 12px ${props => props.theme.shadow};
+    
+    &::before {
+      transform: scaleY(1);
+    }
+    
+    ${NavIcon} {
+      transform: scale(1.1);
+    }
   }
 `
 
 const NavIcon = styled.span`
-  font-size: 18px;
-  margin-right: 12px;
-  width: 20px;
+  font-size: 20px;
+  margin-right: 14px;
+  width: 24px;
   text-align: center;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const NavText = styled.span`
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.2px;
 `
 
 interface SidebarProps {

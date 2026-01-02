@@ -5,16 +5,20 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const AnalyticsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 1200px;
+  gap: 24px;
+  max-width: 1400px;
   margin: 0 auto;
 `
 
 const Title = styled.h1`
-  color: ${props => props.theme.text};
-  font-size: 28px;
-  font-weight: 600;
+  background: ${props => props.theme.gradientPrimary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 32px;
+  font-weight: 700;
   margin: 0;
+  letter-spacing: -0.5px;
 `
 
 const ChartsGrid = styled.div`
@@ -28,18 +32,25 @@ const ChartsGrid = styled.div`
 `
 
 const ChartCard = styled.div`
-  background-color: ${props => props.theme.surface};
-  padding: 20px;
-  border-radius: 12px;
+  background: ${props => props.theme.surface};
+  padding: 28px;
+  border-radius: 16px;
   border: 1px solid ${props => props.theme.border};
-  box-shadow: 0 2px 8px ${props => props.theme.shadow};
+  box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 20px ${props => props.theme.shadowHover};
+    transform: translateY(-2px);
+  }
 `
 
 const ChartTitle = styled.h2`
   color: ${props => props.theme.text};
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
 `
 
 const ChartContainer = styled.div`
@@ -55,22 +66,32 @@ const MetricsGrid = styled.div`
 `
 
 const MetricCard = styled.div`
-  background-color: ${props => props.theme.surface};
-  padding: 20px;
-  border-radius: 12px;
+  background: ${props => props.theme.surface};
+  padding: 24px;
+  border-radius: 16px;
   border: 1px solid ${props => props.theme.border};
-  box-shadow: 0 2px 8px ${props => props.theme.shadow};
+  box-shadow: 0 4px 12px ${props => props.theme.shadow};
   text-align: center;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 20px ${props => props.theme.shadowHover};
+    transform: translateY(-4px);
+  }
 `
 
 const MetricValue = styled.div<{ positive?: boolean }>`
-  color: ${props => {
-    if (props.positive === undefined) return props.theme.text
-    return props.positive ? props.theme.success : props.theme.danger
+  background: ${props => {
+    if (props.positive === undefined) return props.theme.gradientPrimary
+    return props.positive ? props.theme.gradientSuccess : props.theme.gradientDanger
   }};
-  font-size: 24px;
-  font-weight: 600;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 32px;
+  font-weight: 700;
   margin-bottom: 8px;
+  letter-spacing: -0.5px;
 `
 
 const MetricLabel = styled.div`

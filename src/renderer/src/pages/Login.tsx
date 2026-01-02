@@ -9,25 +9,57 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: ${props => props.theme.background};
+  background: ${props => props.theme.gradient};
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 30s linear infinite;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
 `
 
 const LoginCard = styled.div`
-  background-color: ${props => props.theme.surface};
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px ${props => props.theme.shadow};
+  background: ${props => props.theme.surface};
+  backdrop-filter: blur(20px);
+  padding: 48px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
   border: 1px solid ${props => props.theme.border};
+  position: relative;
+  z-index: 1;
 `
 
 const Title = styled.h1`
   text-align: center;
-  color: ${props => props.theme.text};
-  margin-bottom: 30px;
-  font-size: 28px;
-  font-weight: 600;
+  background: ${props => props.theme.gradientPrimary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+`
+
+const Subtitle = styled.p`
+  text-align: center;
+  color: ${props => props.theme.textSecondary};
+  margin-bottom: 40px;
+  font-size: 15px;
 `
 
 const Form = styled.form`
@@ -49,54 +81,70 @@ const Label = styled.label`
 `
 
 const Input = styled.input`
-  padding: 12px 16px;
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
-  background-color: ${props => props.theme.background};
+  padding: 14px 18px;
+  border: 2px solid ${props => props.theme.border};
+  border-radius: 12px;
+  background: ${props => props.theme.backgroundSecondary};
   color: ${props => props.theme.text};
-  font-size: 16px;
+  font-size: 15px;
+  transition: all 0.2s ease;
   
   &:focus {
     outline: none;
     border-color: ${props => props.theme.primary};
-    box-shadow: 0 0 0 3px ${props => props.theme.primary}20;
+    background: ${props => props.theme.surface};
+    box-shadow: 0 0 0 4px ${props => props.theme.primaryLight}40;
+  }
+  
+  &::placeholder {
+    color: ${props => props.theme.textTertiary};
   }
 `
 
 const Button = styled.button`
-  padding: 12px 24px;
-  background-color: ${props => props.theme.primary};
+  padding: 14px 24px;
+  background: ${props => props.theme.gradientPrimary};
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px ${props => props.theme.shadow};
+  letter-spacing: -0.2px;
   
   &:hover {
-    background-color: ${props => props.theme.primaryHover};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px ${props => props.theme.shadowHover};
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
   
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
   }
 `
 
 const SecondaryButton = styled.button`
-  padding: 12px 24px;
-  background-color: transparent;
-  color: ${props => props.theme.text};
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: ${props => props.theme.primary};
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
   
   &:hover {
-    background-color: ${props => props.theme.border};
+    color: ${props => props.theme.primaryHover};
+    text-decoration-thickness: 2px;
   }
 `
 
@@ -112,22 +160,10 @@ const ErrorMessage = styled.div`
 
 const ToggleMode = styled.div`
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
   color: ${props => props.theme.textSecondary};
   font-size: 14px;
-`
-
-const ToggleButton = styled.button`
-  background: none;
-  border: none;
-  color: ${props => props.theme.primary};
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 14px;
-  
-  &:hover {
-    opacity: 0.8;
-  }
+  line-height: 1.6;
 `
 
 const Login: React.FC = () => {
@@ -184,6 +220,7 @@ const Login: React.FC = () => {
     <LoginContainer>
       <LoginCard>
         <Title>StockScope</Title>
+        <Subtitle>Your portfolio at a glance</Subtitle>
         <Form onSubmit={handleSubmit}>
           <InputGroup>
             <Label>Email</Label>
@@ -214,11 +251,10 @@ const Login: React.FC = () => {
           </Button>
           
           <ToggleMode>
-            {isLogin ? "Don't have an account?" : "Already have an account?"}
-            <br />
-            <ToggleButton onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            <SecondaryButton onClick={() => setIsLogin(!isLogin)}>
               {isLogin ? 'Sign Up' : 'Sign In'}
-            </ToggleButton>
+            </SecondaryButton>
           </ToggleMode>
         </Form>
       </LoginCard>
